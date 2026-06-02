@@ -14,26 +14,33 @@ public class AccountPostProcessor implements DataPostProcessor2 {
 
         // Data set records
         Dataset ds = result.getDatasetById("records");
-
-        // Lý do phải check nhu nay la vi do giua response ddc tra ve data set co id map
-        // khong phai records, tuy nhien khi hien thi lai co records
-        if (ds == null) {
-            if (result.getAllRecords() != null || result.getAllRecords().isEmpty()) {
-                ds = result.getAllDatasets().get(0);
-            } else return result;
-        }
+        System.out.println("Dataset" + ds);
 
         if (ds == null || ds.getAllRecords().isEmpty()) {
             result.addParam("status", "NOT_FOUND");
             result.addParam("message", "No data found");
+//            result.addParam("dataset-empty", datasetInfo(result));
             return result;
         }
 
         result.addParam("status", "SUCCESS");
         result.addParam("message", "Get data successfully");
+//        result.addParam("dataset-success", datasetInfo(result));
+
 
         System.out.println("AccountPostProcessor END");
 
         return result;
     }
+//    private String datasetInfo(Result result) {
+//        StringBuilder datasetInfo = new StringBuilder();
+//
+//        if (result.getAllDatasets() != null) {
+//            for (Dataset ds : result.getAllDatasets()) {
+//                datasetInfo.append(ds.getId());
+//            }
+//        }
+//        return datasetInfo.toString();
+//    }
+
 }
